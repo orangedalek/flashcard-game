@@ -8,6 +8,8 @@ var BasicCard = require("./basicCard.js");
 var ClozeCard = require("./clozeCard.js");
 var basicArray = [];
 var clozeArray = [];
+// code from stack overflow to fix weird bug
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 
 // use inquirer to find out what the user wants to do: play basic cards, cloze cards, create new cards, or quit
@@ -44,24 +46,43 @@ function startGame(){
 
 function pushBasicCards(){
     fs.readFile("basicCard.json", 'utf8', function (err,data) {
-      data = JSON.parse(data); 
+      data = JSON.parse(data);
+      
+      // console.log(data);
       for(var i = 0; i < data.length; i++) {
-        var newBasicCard = new BasicCard();
-        newBasicCard.front = data[i].front;
-        newBasicCard.back = data[i].back;
-        basicArray.push(newBasicCard);
-        console.log(basicArray);
-        // playBasic();
+        // var newBasicCard = new BasicCard;
+        // front = data[i].front;
+        // back = data[i].back;
+        basicArray.push(data[i]);
       }
+        // console.log(basicArray);
+        playBasic();
     });
 }
 
 // play the basic cards
 
-// function playBasic(){
-// 	for (var i = 0; i < basic.length; i++) {
-		
-// 	}
+function playBasic(){
+	for (var j = 0; j < basicArray.length; j++) {
+
+		var question = basicArray[j].front;
+		inquirer.prompt([
+		{
+			name:"flashcard",
+			type: "input",
+			message: question
+		}
+
+		]).then(function(response){
+			if(response.flashcard == basicArray[j].back){
+				console.log("Correct!");
+				score ++;
+			}else{
+				console.log("That's incorrect, the correct answer was " + basicArray[i].back);
+			}
+		})
+		}
+	}
 
 // push cloze cards into array
 function pushClozeCards(){
@@ -72,8 +93,8 @@ function pushClozeCards(){
         newClozeCard.complete = data[i].complete;
         newClozeCard.cloze = data[i].cloze;
         clozeArray.push(newClozeCard);
-        console.log(clozeArray);
-        // playCloze();
+        // console.log(clozeArray);
+        playCloze();
       }
     });
 }

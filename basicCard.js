@@ -8,9 +8,9 @@ var file = '/tmp/data.json'
 
 
 function BasicCard(front, back){
-	jsonfile.readFile('./basicCard.json', function(err, obj){
-		// console.log(obj);
-	})
+	// jsonfile.readFile('./basicCard.json', function(err, obj){
+	// 	// console.log(obj);
+	// })
 	if(this instanceof BasicCard){
 		this.front = front;
 		this.back = back;
