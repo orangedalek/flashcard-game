@@ -2,18 +2,18 @@
 var inquirer = require("inquirer");
 var fs = require("fs");
 var jsonfile = require('jsonfile');
-var basicjson = require("./basicCard.js");
-var clozejson = require("./clozeCard.js");
+var basicjson = require("./basicCard.json");
+var clozejson = require("./clozeCard.json");
 var BasicCard = require("./basicCard.js");
 var ClozeCard = require("./clozeCard.js");
-var newBasicCard = new basicCard.BasicCard;
-var newClozeCard = new clozeCard.ClozeCard;
+var basicArray = [];
+var clozeArray = [];
 
 
-var basic = [];
-var cloze = [];
+// use inquirer to find out what the user wants to do: play basic cards, cloze cards, create new cards, or quit
 
 function startGame(){
+
 	inquirer.prompt([
 	{
 		name: "options",
@@ -25,7 +25,7 @@ function startGame(){
 		]).then(function(answer){
 		switch(answer.options){
 			case "play basic cards":
-				playBasic();
+				pushBasicCards();
 				break;
 			case "play cloze cards":
 				playCloze();
@@ -40,29 +40,38 @@ function startGame(){
 	});
 }
 
-function playBasic(){
+// get cards from js file and push them into basic card array
 
-		this.getData = function(){
-		fs.readFile("./user.txt", "utf8", function(err, data){
+function pushBasicCards(){
+    fs.readFile("basicCard.json", 'utf8', function (err,data) {
+      data = JSON.parse(data); 
+      for(var i = 0; i < data.length; i++) {
+        var newBasicCard = new BasicCard();
+        newBasicCard.front = data[i].front;
+        newBasicCard.back = data[i].back;
+        basicArray.push(newBasicCard);
+        console.log(basicArray);
+        // playBasic();
+      }
+    });
+}
 
-			if(err){
-				console.log(err);
-			}else{
-				console.log(data);
-			}
-		})
+// play the basic cards
 
-	}
-	jsonfile.readFile("./basicCard.json", function(err, data){
-	inquirer.prompt([
-	{
-		name: "question",
-		type: "input",
-		message: "data.front"
-	}
-	]).then()
-	})
-	}
+// function playBasic(){
+// 	for (var i = 0; i < basic.length; i++) {
+		
+// 	}
+
+// push cloze cards into array
+
+// play clozed cards
+
+// add basic cards (fron & back)
+
+// add cloze cards (complete & cloze)
+
+// give user a score
 
 
 

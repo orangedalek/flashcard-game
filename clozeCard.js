@@ -16,4 +16,5 @@ function ClozeCard(complete, cloze){
 	}
 }
 
-module.exports = ClozeCard(this.complete, this.cloze);
+module.exports = ClozeCard;
+

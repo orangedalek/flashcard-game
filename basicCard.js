@@ -19,4 +19,6 @@ function BasicCard(front, back){
 	}
 }
 
-module.exports = BasicCard(this.front, this.back);
+module.exports = BasicCard;
+
+
