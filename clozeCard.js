@@ -6,7 +6,7 @@ var file = '/tmp/data.json'
 
 function ClozeCard(complete, cloze){
 	jsonfile.readFile('./clozeCard.json', function(err, obj){
-		console.log(obj);
+		// console.log(obj);
 	})
 	if(this instanceof ClozeCard){
 		this.complete = complete;

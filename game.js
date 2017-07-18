@@ -28,7 +28,7 @@ function startGame(){
 				pushBasicCards();
 				break;
 			case "play cloze cards":
-				playCloze();
+				pushClozeCards();
 				break;
 			case "create new cards":
 				createMenu();
@@ -64,8 +64,23 @@ function pushBasicCards(){
 // 	}
 
 // push cloze cards into array
+function pushClozeCards(){
+    fs.readFile("clozeCard.json", 'utf8', function (err,data) {
+      data = JSON.parse(data); 
+      for(var i = 0; i < data.length; i++) {
+        var newClozeCard = new ClozeCard();
+        newClozeCard.complete = data[i].complete;
+        newClozeCard.cloze = data[i].cloze;
+        clozeArray.push(newClozeCard);
+        console.log(clozeArray);
+        // playCloze();
+      }
+    });
+}
 
 // play clozed cards
+
+// if user wants to add cards, have them pick basic or cloze
 
 // add basic cards (fron & back)
 
